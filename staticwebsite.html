@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --text: #1a1814;
+      --muted: #6b685f;
+      --accent: #2a2420;
+      --rule: rgba(0,0,0,0.08);
+      --link-hover: #c8602a;
+      --tag-bg: #edeae3;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141210;
+        --surface: #1e1c18;
+        --text: #f0ece3;
+        --muted: #958f83;
+        --accent: #e8e0d0;
+        --rule: rgba(255,255,255,0.08);
+        --link-hover: #e07848;
+        --tag-bg: #27241e;
+      }
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      max-width: 420px;
+      width: 100%;
+      border: 1px solid var(--rule);
+    }
+
+    /* ── Photo ── */
+    .photo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .photo {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--surface);
+      box-shadow: 0 0 0 1px var(--rule);
+    }
+
+    /* Placeholder shown when no image is loaded */
+    .photo-placeholder {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: var(--tag-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--muted);
+      letter-spacing: -0.02em;
+    }
+
+    /* ── Name & bio ── */
+    .name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      text-align: center;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    /* ── Divider ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0 0 1.75rem;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.85rem;
+    }
+
+    /* ── Link list ── */
+    .link-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: var(--tag-bg);
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: background 0.15s, color 0.15s, transform 0.15s;
+    }
+
+    .link-item:hover {
+      background: var(--accent);
+      color: var(--bg);
+      transform: translateX(3px);
+    }
+
+    .link-item:hover .link-icon svg {
+      stroke: var(--bg);
+      fill: none;
+    }
+
+    .link-item:hover .link-icon svg.filled {
+      fill: var(--bg);
+    }
+
+    .link-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .link-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--text);
+      stroke-width: 1.5;
+      fill: none;
+      transition: stroke 0.15s, fill 0.15s;
+    }
+
+    .link-icon svg.filled {
+      fill: var(--text);
+      stroke: none;
+      transition: fill 0.15s;
+    }
+
+    .link-label {
+      flex: 1;
+    }
+
+    .link-sub {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .link-item:hover .link-sub {
+      color: rgba(255,255,255,0.55);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .link-item:hover .link-sub {
+        color: rgba(20,18,16,0.55);
+      }
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- Photo -->
+    <div class="photo-wrap">
+      <!--
+        OPTION A — real photo:
+        Replace the placeholder below with:
+        <img class="photo" src="photo.jpg" alt="Your Name" />
+
+        OPTION B — keep the initials placeholder:
+      -->
+      <div class="photo-placeholder">CW</div>
+    </div>
+
+    <!-- Name & tagline -->
+    <h1 class="name">Chris Westergaard</h1>
+    <p class="tagline">Husband, dad, and volunteer.</p>
+
+    <hr />
+
+    <!-- Personal contact -->
+    <p class="section-label">Personal</p>
+    <div class="link-group">
+
+      <a class="link-item" href="mailto:chris@chrisandeden.com">
+        <span class="link-icon">
+          <!-- Email icon -->
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 7l10 7 10-7" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="link-label">
+          chris@chrisandeden.com
+          <span class="link-sub">Personal email</span>
+        </span>
+      </a>
+
+      <a class="link-item" href="https://x.com/cpwestergaard" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <!-- X / Twitter mark -->
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="filled">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L2.002 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+          </svg>
+        </span>
+        <span class="link-label">
+          @cpwestergaard
+          <span class="link-sub">X (Twitter)</span>
+        </span>
+      </a>
+
+      <a class="link-item" href="https://instagram.com/chriswestergaard" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <!-- Instagram icon -->
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="link-label">
+          @chriswestergaard
+          <span class="link-sub">Instagram</span>
+        </span>
+      </a>
+
+    </div>
+
+    <!-- Work contact -->
+    <p class="section-label">Work</p>
+    <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.4;">Woodward Lake Master Association<br><span style="font-weight: 500; color: var(--text);">Board Director</span></p>
+    <div class="link-group">
+
+      <a class="link-item" href="mailto:chris.westergaard@wwlma.com">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 7l10 7 10-7" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="link-label">
+          chris.westergaard@wwlma.com
+          <span class="link-sub">Work email</span>
+        </span>
+      </a>
+
+      <!-- Optional: LinkedIn -->
+      <!--
+      <a class="link-item" href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="filled">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/>
+          </svg>
+        </span>
+        <span class="link-label">
+          Your Name
+          <span class="link-sub">LinkedIn</span>
+        </span>
+      </a>
+      -->
+
+    </div>
+
+    <p class="footer">chriswestergaard.com</p>
+  </div>
+</body>
+</html>
